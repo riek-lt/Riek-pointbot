@@ -1,0 +1,35 @@
+<html>
+
+<head>
+  <script src="https://cdn.jsdelivr.net/npm/comfy.js@latest/dist/comfy.min.js"></script>
+</head>
+
+<body>
+  <script type="text/javascript">
+    // Initializing all of your sounds here. As you can see, I need to up a level (..), then down into the honk folder (/honk)
+    // and then point to the file (/honk-sound.mp3).
+    //If you put a file in the same folder as this file, use/uncomment the bottom one and delete the top one.
+    let honk = new Audio('../honk/honk-sound.mp3')
+    // let honk = new Audio('honk-sound.mp3')
+
+    ComfyJS.onChat = (user, message, flags, self, extra) => {
+      //Switch is better for the eye.
+      switch (extra.customRewardId) {
+        case '231bc4b1-1e68-4779-9b05-04b49cc04822':
+          //Console isn't necessary, just for your own administration. Could also use a comment like this.
+          console.log("Played a honk");
+          //Tell the browser to play a sound.
+          honk.play();
+          //end of everything for this reward.
+          break;
+
+        case 'e7750cae-582f-43a6-931f-4faed7e1943d':
+          console.log("Whatever this thing does activated");
+          break;
+      }
+    }
+    ComfyJS.Init("yourChannel");
+  </script>
+</body>
+
+</html>

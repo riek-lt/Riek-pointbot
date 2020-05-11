@@ -1,0 +1,19 @@
+<html>
+
+<head>
+  <script src="https://cdn.jsdelivr.net/npm/comfy.js@latest/dist/comfy.min.js"></script>
+</head>
+
+<body>
+  <script type="text/javascript">
+
+    ComfyJS.onChat = (user, command, message, flags, extra) => {
+      if (extra.customRewardId) {
+        console.log(extra.customRewardId);
+      }
+    }
+    ComfyJS.Init("yourChannel");
+  </script>
+</body>
+
+</html>
