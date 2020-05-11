@@ -149,13 +149,14 @@
           number = Math.floor(Math.random() * longsong.length);
           // console.log(number);
           eventQueue.push(longsong[number]);
+          overlayTimer(honkOverlay, 3, "honktimer", false);
           break;
         case 'ac09e298-9433-42dd-9c98-32a7be6a0d91':
           console.log("Full song played");
           number = Math.floor(Math.random() * longsong.length);
           // console.log(number);
           eventQueue.push(fullsong[number])
-          overlayTimer(honkOverlay, 3, "honktimer", false);
+          overlayTimer(honkOverlay, 9, "honktimer", false);
           break;
         case '2b698bc6-7fd5-4bb0-94a8-090326dbf1cb':
           console.log("British TTS");
