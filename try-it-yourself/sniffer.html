@@ -7,12 +7,12 @@
 <body>
   <script type="text/javascript">
 
-    ComfyJS.onChat = (user, command, message, flags, extra) => {
+    ComfyJS.onChat = (user, message, flags, self, extra) => {
       if (extra.customRewardId) {
         console.log(extra.customRewardId);
       }
     }
-    ComfyJS.Init("yourChannel");
+    ComfyJS.Init("YourChannel");
   </script>
 </body>
 
