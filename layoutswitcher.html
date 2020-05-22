@@ -54,11 +54,14 @@
             synth.style.display = "inline";
             currentLayout = message;
           } else if (message == "san andreas map") {
-            synth.style.display = "inline";
-            sananmap = message;
+            sananmap.style.display = "inline";
+            currentLayout = message;
           } else if (message == "ace goose") {
-            synth.style.display = "inline";
-            acegoose = message;
+            acegoose.style.display = "inline";
+            currentLayout = message;
+          } else if (message == "snipperclips") {
+            snipperclips.style.display = "inline";
+            currentLayout = message;
           }
           setTimeout(function() {
             undo(currentLayout);
