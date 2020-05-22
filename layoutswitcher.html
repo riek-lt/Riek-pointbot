@@ -19,10 +19,16 @@
   <img src="../../Graphics/OverlayV4/OverlaySTDlight.png" id="pink43" />
   <img src="../../Graphics/OverlayV3/Overlay-4-3Synth.png" id="synth43" style="display:none" />
   <img src="../../Graphics/Deprecated/Overlay-4-3s.png" id="purp43" style="display:none" />
+  <img src="../../Graphics/OverlayV4/sanandreasmap.png" id="sanandreasmap43" style="display:none" />
+  <img src="../../Graphics/OverlayV4/GooseAttorney.png" id="acegoose43" style="display:none" />
+  <img src="../../Graphics/OverlayV4/snipperclips.png" id="snipperclips43" style="display:none" />
   <script type="text/javascript">
     var pink = document.getElementById('pink43');
     var synth = document.getElementById('synth43');
     var purple = document.getElementById('purp43');
+    var sananmap = document.getElementById('sanandreasmap43');
+    var acegoose = document.getElementById('acegoose43');
+    var snipperclips = document.getElementById('snipperclips43');
     var currentLayout = "pink";
 
 
@@ -47,6 +53,12 @@
           } else if (message == "synth") {
             synth.style.display = "inline";
             currentLayout = message;
+          } else if (message == "san andreas map") {
+            synth.style.display = "inline";
+            sananmap = message;
+          } else if (message == "ace goose") {
+            synth.style.display = "inline";
+            acegoose = message;
           }
           setTimeout(function() {
             undo(currentLayout);
@@ -68,14 +80,44 @@
         case 'pink':
           purple.style.display = 'none';
           synth.style.display = 'none';
+          sananmap.style.display = 'none';
+          acegoose.style.display = 'none';
+          snipperclips.style.display = "none";
           break;
         case 'synth':
           purple.style.display = 'none';
           pink.style.display = 'none';
+          sananmap.style.display = 'none';
+          acegoose.style.display = 'none';
+          snipperclips.style.display = "none";
           break;
         case 'purple':
           pink.style.display = 'none';
           synth.style.display = 'none';
+          sananmap.style.display = 'none';
+          acegoose.style.display = 'none';
+          snipperclips.style.display = "none";
+          break;
+        case 'san andreas map':
+          pink.style.display = 'none';
+          synth.style.display = 'none';
+          purple.style.display = 'none';
+          acegoose.style.display = 'none';
+          snipperclips.style.display = "none";
+          break;
+        case 'ace goose':
+          pink.style.display = 'none';
+          synth.style.display = 'none';
+          purple.style.display = 'none';
+          sananmap.style.display = 'none';
+          snipperclips.style.display = "none";
+          break;
+        case 'snipperclips':
+          pink.style.display = 'none';
+          synth.style.display = 'none';
+          purple.style.display = 'none';
+          sananmap.style.display = 'none';
+          acegoose.style.display = 'none';
           break;
       }
     }
