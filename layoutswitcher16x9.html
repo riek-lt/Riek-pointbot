@@ -1,0 +1,130 @@
+<html>
+
+<head>
+  <script src="https://cdn.jsdelivr.net/npm/comfy.js@latest/dist/comfy.min.js"></script>
+  <style>
+    img {
+  top: 0px;
+  left: 0px;
+  position: absolute;
+  padding: 0px 0px 0px 0px;
+  margin: 0px 0px 0px 0px;
+  /* width: 1280px;
+  height: 720px; */
+}
+  </style>
+</head>
+
+<body>
+  <img src="../../Graphics/OverlayV4/ws/pink.png" id="pink169" />
+  <img src="../../Graphics/OverlayV4/ws/Overlay-16-9Synth.png" id="synth169" style="display:none" />
+  <img src="../../Graphics/OverlayV4/ws/purple.png" id="purp169" style="display:none" />
+  <img src="../../Graphics/OverlayV4/ws/gtasamap.png" id="sanandreasmap169" style="display:none" />
+  <img src="../../Graphics/OverlayV4/ws/goose.png" id="acegoose169" style="display:none" />
+  <img src="../../Graphics/OverlayV4/ws/snipperclips.png" id="snipperclips169" style="display:none" />
+  <script type="text/javascript">
+    var pink = document.getElementById('pink169');
+    var synth = document.getElementById('synth169');
+    var purple = document.getElementById('purp169');
+    var sananmap = document.getElementById('sanandreasmap169');
+    var acegoose = document.getElementById('acegoose169');
+    var snipperclips = document.getElementById('snipperclips169');
+    var currentLayout = "pink";
+
+
+    ComfyJS.onCommand = (user, command, message, flags, extra) => {
+      checkCommands(user, message, flags, self, extra);
+    }
+
+    ComfyJS.onChat = (user, message, flags, self, extra) => {
+      checkCommands(user, message, flags, self, extra);
+    }
+
+    function checkCommands(user, message, flags, self, extra) {
+      switch (extra.customRewardId) {
+        case 'd49c0253-bb51-4798-804b-52fd9c957b1b':
+          currentLayout = message;
+          if (message == "pink") {
+            pink.style.display = "inline";
+            currentLayout = message;
+          } else if (message == "purple") {
+            purple.style.display = "inline";
+            currentLayout = message;
+          } else if (message == "synth") {
+            synth.style.display = "inline";
+            currentLayout = message;
+          } else if (message == "san andreas map") {
+            sananmap.style.display = "inline";
+            currentLayout = message;
+          } else if (message == "ace goose") {
+            acegoose.style.display = "inline";
+            currentLayout = message;
+          } else if (message == "snipperclips") {
+            snipperclips.style.display = "inline";
+            currentLayout = message;
+          }
+          setTimeout(function() {
+            undo(currentLayout);
+          }, (1000));
+          break;
+      }
+    }
+
+    ComfyJS.Init("riekelt");
+
+    function randomIntInc(high, low) {
+      var returnio = Math.floor(Math.random() * high);
+      console.log(returnio);
+      return returnio;
+    }
+
+    function undo(currentLayout) {
+      switch (currentLayout) {
+        case 'pink':
+          purple.style.display = 'none';
+          synth.style.display = 'none';
+          sananmap.style.display = 'none';
+          acegoose.style.display = 'none';
+          snipperclips.style.display = "none";
+          break;
+        case 'synth':
+          purple.style.display = 'none';
+          pink.style.display = 'none';
+          sananmap.style.display = 'none';
+          acegoose.style.display = 'none';
+          snipperclips.style.display = "none";
+          break;
+        case 'purple':
+          pink.style.display = 'none';
+          synth.style.display = 'none';
+          sananmap.style.display = 'none';
+          acegoose.style.display = 'none';
+          snipperclips.style.display = "none";
+          break;
+        case 'san andreas map':
+          pink.style.display = 'none';
+          synth.style.display = 'none';
+          purple.style.display = 'none';
+          acegoose.style.display = 'none';
+          snipperclips.style.display = "none";
+          break;
+        case 'ace goose':
+          pink.style.display = 'none';
+          synth.style.display = 'none';
+          purple.style.display = 'none';
+          sananmap.style.display = 'none';
+          snipperclips.style.display = "none";
+          break;
+        case 'snipperclips':
+          pink.style.display = 'none';
+          synth.style.display = 'none';
+          purple.style.display = 'none';
+          sananmap.style.display = 'none';
+          acegoose.style.display = 'none';
+          break;
+      }
+    }
+  </script>
+</body>
+
+</html>
