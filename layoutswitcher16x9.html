@@ -80,49 +80,55 @@
     }
 
     function undo(currentLayout) {
-      switch (currentLayout) {
-        case 'pink':
-          purple.style.display = 'none';
-          synth.style.display = 'none';
-          sananmap.style.display = 'none';
-          acegoose.style.display = 'none';
-          snipperclips.style.display = "none";
-          break;
-        case 'synth':
-          purple.style.display = 'none';
-          pink.style.display = 'none';
-          sananmap.style.display = 'none';
-          acegoose.style.display = 'none';
-          snipperclips.style.display = "none";
-          break;
-        case 'purple':
-          pink.style.display = 'none';
-          synth.style.display = 'none';
-          sananmap.style.display = 'none';
-          acegoose.style.display = 'none';
-          snipperclips.style.display = "none";
-          break;
-        case 'san andreas map':
-          pink.style.display = 'none';
-          synth.style.display = 'none';
-          purple.style.display = 'none';
-          acegoose.style.display = 'none';
-          snipperclips.style.display = "none";
-          break;
-        case 'goose':
-          pink.style.display = 'none';
-          synth.style.display = 'none';
-          purple.style.display = 'none';
-          sananmap.style.display = 'none';
-          snipperclips.style.display = "none";
-          break;
-        case 'snipperclips':
-          pink.style.display = 'none';
-          synth.style.display = 'none';
-          purple.style.display = 'none';
-          sananmap.style.display = 'none';
-          acegoose.style.display = 'none';
-          break;
+      // switch (currentLayout) {
+      //   case 'pink':
+      //     purple.style.display = 'none';
+      //     synth.style.display = 'none';
+      //     sananmap.style.display = 'none';
+      //     acegoose.style.display = 'none';
+      //     snipperclips.style.display = "none";
+      //     break;
+      //   case 'synth':
+      //     purple.style.display = 'none';
+      //     pink.style.display = 'none';
+      //     sananmap.style.display = 'none';
+      //     acegoose.style.display = 'none';
+      //     snipperclips.style.display = "none";
+      //     break;
+      //   case 'purple':
+      //     pink.style.display = 'none';
+      //     synth.style.display = 'none';
+      //     sananmap.style.display = 'none';
+      //     acegoose.style.display = 'none';
+      //     snipperclips.style.display = "none";
+      //     break;
+      //   case 'san andreas map':
+      //     pink.style.display = 'none';
+      //     synth.style.display = 'none';
+      //     purple.style.display = 'none';
+      //     acegoose.style.display = 'none';
+      //     snipperclips.style.display = "none";
+      //     break;
+      //   case 'goose':
+      //     pink.style.display = 'none';
+      //     synth.style.display = 'none';
+      //     purple.style.display = 'none';
+      //     sananmap.style.display = 'none';
+      //     snipperclips.style.display = "none";
+      //     break;
+      //   case 'snipperclips':
+      //     pink.style.display = 'none';
+      //     synth.style.display = 'none';
+      //     purple.style.display = 'none';
+      //     sananmap.style.display = 'none';
+      //     acegoose.style.display = 'none';
+      //     break;
+          if (currentLayout != 'pink') { pink.style.display = 'none';}
+          if (currentLayout != 'purple') { purple.style.display = 'none';}
+          if (currentLayout != 'synth') { synth.style.display = 'none';}
+          if (currentLayout != 'goose') { acegoose.style.display = 'none';}
+          if (currentLayout != 'snipperclips') { snipperclips.style.display = 'none';}
+          if (currentLayout != 'san andreas map') { sananmap.style.display = 'none';}
       }
     }
   </script>
