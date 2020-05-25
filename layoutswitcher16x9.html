@@ -43,6 +43,7 @@
     function checkCommands(user, message, flags, self, extra) {
       switch (extra.customRewardId) {
         case 'd49c0253-bb51-4798-804b-52fd9c957b1b':
+        message = message.toLowerCase();
           currentLayout = message;
           if (message == "pink") {
             pink.style.display = "inline";
