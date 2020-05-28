@@ -48,6 +48,7 @@
     let audioplay = [];
     let eventQueue = [];
     let msgQueue = [];
+    var messageLength = "";
     let ttsTimer = false;
     let nederlands = new Audio('nederland.mp3')
     let honk = '../honk/honk-sound.mp3';
@@ -181,6 +182,16 @@
       audioController();
 
       if (!flags.customReward) {
+        messageLength = [];
+        messageLength = message.split(" ");
+        if (messageLength.length > 20) {
+          message = "";
+          for (var i = 0; i < 20; i++) {
+            console.log(i);
+            message += messageLength[i] + " ";
+          }
+          console.log(message);
+        }
         msgQueue.push(message.trim());
         playTTS();
       }
