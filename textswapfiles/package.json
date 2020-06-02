@@ -1,0 +1,14 @@
+{
+  "name": "textswapfiles",
+  "version": "1.0.0",
+  "description": "text file slideshow",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Riekelt",
+  "license": "ISC",
+  "dependencies": {
+    "readline-sync": "^1.4.10"
+  }
+}
