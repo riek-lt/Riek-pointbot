@@ -10,6 +10,8 @@
   "author": "Riekelt",
   "license": "ISC",
   "dependencies": {
+    "appjs": "0.0.20",
+    "appjs-win32": "0.0.19",
     "readline-sync": "^1.4.10"
   }
 }

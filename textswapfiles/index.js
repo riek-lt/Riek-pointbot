@@ -1,3 +1,4 @@
+//pkg index.js --output textswapfiles.js
 const interval = 12; //In seconds
 // var _ = require("lodash");
 var fs = require('fs');
@@ -5,10 +6,10 @@ const readline = require("readline-sync");
 
 // var newestSub = "file:///C:\\Users/Rieke/Muxy/most_recent_subscriber.txt";
 var newestSub = 'c:\\Users\\Rieke\\Muxy\\most_recent_subscriber.txt';
-var newestFollower = "C:/Users/Rieke/Muxy/most_recent_follower.txt";
+// var newestFollower = "C:/Users/Rieke/Muxy/most_recent_follower.txt";
 var newestCheerer = "C:/Users/Rieke/Muxy/cheer/most_recent_cheerer.txt";
 var nowPlaying = "C:\Users/Rieke/Documents/GTA San Andreas User Files/Now Playing.txt"
-var options = [newestSub, newestFollower, newestCheerer];
+var options = [newestSub, newestCheerer];
 var currentState = 0;
 var lines = "";
 var userinput = "";
