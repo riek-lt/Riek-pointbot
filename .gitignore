@@ -3,7 +3,8 @@
 
 *.psd
 textswapfiles/node_modules/
-textswapfiles/textswapfiles-*
+textswapfiles/textswapfiles*
+textswapfiles/slideshow.txt
 
 textswapfiles\slideshow.txt
 /node_modules

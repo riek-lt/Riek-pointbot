@@ -184,16 +184,17 @@
       if (!flags.customReward) {
         messageLength = [];
         messageLength = message.split(" ");
-        if (messageLength.length > 20) {
-          message = "";
-          for (var i = 0; i < 20; i++) {
-            console.log(i);
-            message += messageLength[i] + " ";
+        if (message[0].substring(0, 1) !== "!") {
+          if (messageLength.length > 20) {
+            message = "";
+            for (var i = 0; i < 20; i++) {
+              message += messageLength[i] + " ";
+            }
           }
-          console.log(message);
+          msgQueue.push(message.trim());
+          playTTS();
+        } else {
         }
-        msgQueue.push(message.trim());
-        playTTS();
       }
     }
     ComfyJS.Init("riekelt");
