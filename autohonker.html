@@ -182,7 +182,13 @@ https://lazypy.ro/tts/?voice=2-4-11&service=Oddcast&text=Godverdomme%20heb%20ik%
           ttsService = "Oddcast"
           overlayTimer(ttsOverlay, 7, "ttsTimer", true);
           break;
-
+          case '9e28f797-e3e5-46de-8bb2-e29f90e72bc6':
+            console.log("Japanese TTS activate");
+            msgQueue.length = 0;
+            ttsVoice = 'Takumi';
+            ttsService = "Polly"
+            overlayTimer(ttsOverlay, 6, "ttsTimer", true);
+            break;
         case '02db1e1d-a2c9-4208-9cd0-94cd6567c1d0':
           console.log("nederlands");
           nederlands.play();
