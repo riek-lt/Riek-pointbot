@@ -1,17 +1,23 @@
+<!--
+List of all TTS voices:
+https://github.com/chrisjp/tts/blob/master/assets/js/tts.js#L10-L66
+Test them anywhere
+https://lazypy.ro/tts/?voice=2-4-11&service=Oddcast&text=Godverdomme%20heb%20ik%20zin%20om%20een%20zeehond%20in%20elkaar%20te%20knuppelen&lang=Dutch&s=A
+-->
 <html>
 
 <head>
   <script src="https://cdn.jsdelivr.net/npm/comfy.js@latest/dist/comfy.min.js"></script>
   <style>
     img {
-  top: 0px;
-  left: 0px;
-  position: absolute;
-  padding: 0px 0px 0px 0px;
-  margin: 0px 0px 0px 0px;
-  /* width: 1280px;
+      top: 0px;
+      left: 0px;
+      position: absolute;
+      padding: 0px 0px 0px 0px;
+      margin: 0px 0px 0px 0px;
+      /* width: 1280px;
   height: 720px; */
-}
+    }
   </style>
 </head>
 
@@ -38,9 +44,11 @@
       audio: document.querySelector("#audio")
     };
     // const TTS_BASE = "https://translate.google.com/translate_tts";
-    const TTS_BASE = "https://api.streamelements.com/kappa/v2/speech";
+    // const TTS_BASE = "https://api.streamelements.com/kappa/v2/speech";
+    const TTS_BASE = "https://cors-anywhere.herokuapp.com/https://lazypy.ro/tts/proxy.php";
     const params = new URLSearchParams(location.search);
-    let ttsVoice;
+    let ttsVoice = params.get("voice") || "Marc";
+    let ttsService="Polly";
     // const ttsVoice = params.get("voice") || "Brian";
     var isPlaying = 0;
     let ttsLang = "brit";
@@ -160,18 +168,27 @@
           overlayTimer(honkOverlay, 9, "honktimer", false);
           break;
         case '2b698bc6-7fd5-4bb0-94a8-090326dbf1cb':
-          console.log("British TTS");
+          console.log("English TTS");
           msgQueue.length = 0;
-          ttsVoice = params.get("voice") || "en-GB-Standard-C";
+          ttsVoice = 'Jordan';
+          ttsService = "CereProc"
           overlayTimer(ttsOverlay, 6, "ttsTimer", true);
           break;
         case '1911e078-65e1-4833-aeea-2ca7361e5cf3':
           console.log("Dutch TTS activate");
           msgQueue.length = 0;
-          ttsVoice = params.get("voice") || "nl-NL-Wavenet-C";
-          ttsTimer = true;
+          // ttsVoice = params.get("voice") || "nl-NL-Wavenet-C";
+          ttsVoice = '1-2-11';
+          ttsService = "Oddcast"
           overlayTimer(ttsOverlay, 7, "ttsTimer", true);
           break;
+          case '9e28f797-e3e5-46de-8bb2-e29f90e72bc6':
+            console.log("Japanese TTS activate");
+            msgQueue.length = 0;
+            ttsVoice = 'Takumi';
+            ttsService = "Polly"
+            overlayTimer(ttsOverlay, 6, "ttsTimer", true);
+            break;
         case '02db1e1d-a2c9-4208-9cd0-94cd6567c1d0':
           console.log("nederlands");
           nederlands.play();
@@ -193,12 +210,12 @@
           }
           msgQueue.push(message.trim());
           playTTS();
-        } else {
-        }
+        } else {}
       }
     }
     ComfyJS.Init("riekelt");
 
+//The code down here is for playing the honk queue.
     elements.audio.addEventListener('ended', audioController)
 
     async function audioController() {
@@ -248,6 +265,7 @@
       if (ttsTimer) {
         // if audio playing, queue
         if (audio2.paused) {
+          const str = `service=${ttsService}&voice=${ttsVoice}&text=${encodeURIComponent(msgQueue[0])}`;
           const qs = new URLSearchParams({
             voice: ttsVoice,
             text: msgQueue[0]
@@ -261,22 +279,25 @@
           //   client: "tw-ob",
           //   q: msgQueue[0]
           // });
-
-          const speak = await fetch(`${ TTS_BASE }?${ qs }`);
-          if (speak.status != 200) {
-            // await speak.text();
+          let speak = await makeTTSRequest('POST', `${TTS_BASE}?${str}`);
+          speak = JSON.parse(speak);
+          if (!speak.success) {
+            console.log("speak didn't succeed");
             return;
           }
+          if (speak.status != 200) {
+            console.log("speak isn't 200");
+            // await speak.text();
+            // return;
+          }
 
-          const mp3 = await speak.blob();
-          const blobUrl = URL.createObjectURL(mp3);
-          elements2.source.src = blobUrl;
+          const mp3 = speak.speak_url;
+          // const blobUrl = URL.createObjectURL(mp3);
+          elements2.source.src = mp3;
           const audio2 = elements2.audio;
-
           audio2.load();
           audio2.volume = 1;
           audio2.play();
-
           // remove message from queue
           msgQueue.shift();
 
@@ -287,6 +308,29 @@
         }
       }
     }
+    function makeTTSRequest(method, url) {
+  return new Promise(function (resolve, reject) {
+    let xhr = new XMLHttpRequest();
+    xhr.open(method, url);
+    xhr.onload = function () {
+      if (this.status >= 200 && this.status < 300) {
+        resolve(xhr.response);
+      } else {
+        reject({
+          status: this.status,
+          statusText: xhr.statusText,
+        });
+      }
+    };
+    xhr.onerror = function () {
+      reject({
+        status: this.status,
+        statusText: xhr.statusText,
+      });
+    };
+    xhr.send();
+  });
+}
   </script>
 </body>
 
