@@ -49,7 +49,7 @@ function doSwap() {
     currentState = 0;
   }
   if (options[currentState] == customMsg) {
-    console.log("customMsg");
+    console.log(customMsg);
     fs.writeFile('slideshow.txt', customMsg, (err) => {
       if (err) throw err;
     });
