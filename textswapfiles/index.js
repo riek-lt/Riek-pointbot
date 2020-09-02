@@ -1,4 +1,4 @@
-//pkg index.js --output textswapfiles.js
+//pkg index.js --output textswapfiles
 const interval = 12; //In seconds
 // var _ = require("lodash");
 var fs = require('fs');
@@ -8,8 +8,16 @@ const readline = require("readline-sync");
 var newestSub = 'c:\\Users\\Rieke\\Muxy\\most_recent_subscriber.txt';
 // var newestFollower = "C:/Users/Rieke/Muxy/most_recent_follower.txt";
 var newestCheerer = "C:/Users/Rieke/Muxy/cheer/most_recent_cheerer.txt";
+var currentFollowers = "C:/Users/Rieke/Muxy/total_follower_count.txt"
 var nowPlaying = "C:\Users/Rieke/Documents/GTA San Andreas User Files/Now Playing.txt"
-var options = [newestSub, newestCheerer];
+
+var subImage = "D:/Dropbox/Projects/Stream/fluff/textswapfiles/img/sub.png";
+var cheerImage = "D:/Dropbox/Projects/Stream/fluff/textswapfiles/img/cheers.png";
+var followerImage = "D:/Dropbox/Projects/Stream/fluff/textswapfiles/img/followers.png";
+var nowPlayingImage = "D:/Dropbox/Projects/Stream/fluff/textswapfiles/img/musiccover.png";
+
+var options = [newestSub, newestCheerer, currentFollowers];
+var optionsImage = [subImage, cheerImage, followerImage, nowPlayingImage];
 var currentState = 0;
 var lines = "";
 var userinput = "";
@@ -17,6 +25,7 @@ var userinput = "";
 userinput = readline.question('Will there be GTA music? (y/n)');
   if (userinput.match("y")) {
     options.push(nowPlaying);
+	optionsImage.push(nowPlayingImage);
     console.log("there will be GTA music");
     // rl.close();
   }
@@ -31,7 +40,6 @@ function doSwap() {
   if (currentState == options.length) {
     currentState = 0;
   }
-  // console.log("currentState = " + currentState);
   fs.readFile(options[currentState], function(err, data) {
     if (err) throw err;
     //Fills lines with everything in a string array, seperated by \n.
@@ -39,8 +47,14 @@ function doSwap() {
     console.log(lines);
     fs.writeFile('slideshow.txt', lines, (err) => {
       if (err) throw err;
-      // console.log('The file has been saved!');
     });
   });
+  fs.readFile(optionsImage[currentState], function (err, data) {
+    if (err) throw err;
+    fs.writeFile('slideshowimage.png', data, function (err) {
+        if (err) throw err;
+        console.log('It\'s saved!');
+    });
+});
   currentState++
 }
