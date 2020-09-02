@@ -16,12 +16,13 @@
 </head>
 
 <body>
-  <img src="../../Graphics/OverlayV4/ws/pink.png" id="pink169" />
-  <img src="../../Graphics/OverlayV4/ws/Overlay-16-9Synth.png" id="synth169" style="display:none" />
-  <img src="../../Graphics/OverlayV4/ws/purple.png" id="purp169" style="display:none" />
-  <img src="../../Graphics/OverlayV4/ws/gtasamap.png" id="sanandreasmap169" style="display:none" />
-  <img src="../../Graphics/OverlayV4/ws/goose.png" id="acegoose169" style="display:none" />
-  <img src="../../Graphics/OverlayV4/ws/snipperclips.png" id="snipperclips169" style="display:none" />
+  <img src="../Graphics/OverlayV4/ws/pink.png" id="pink169" style="display:none" />
+  <img src="../Graphics/OverlayV4/ws/Overlay-16-9Synth.png" id="synth169" style="display:none" />
+  <img src="../Graphics/OverlayV4/ws/purple.png" id="purp169" style="display:none" />
+  <img src="../Graphics/OverlayV4/ws/gtasamap.png" id="sanandreasmap169" style="display:none" />
+  <img src="../Graphics/OverlayV4/ws/goose.png" id="acegoose169" style="display:none" />
+  <img src="../Graphics/OverlayV4/ws/snipperclips.png" id="snipperclips169" style="display:none" />
+    <img src="../Graphics/OverlayV4/ws/OverlayWSBlue.png" id="overlayblue"  />
   <script type="text/javascript">
     var pink = document.getElementById('pink169');
     var synth = document.getElementById('synth169');
@@ -29,7 +30,8 @@
     var sananmap = document.getElementById('sanandreasmap169');
     var acegoose = document.getElementById('acegoose169');
     var snipperclips = document.getElementById('snipperclips169');
-    var currentLayout = "pink";
+	var overlayblue = document.getElementById('overlayblue');
+    var currentLayout = "overlayblue";
 
 
     ComfyJS.onCommand = (user, command, message, flags, extra) => {
@@ -63,6 +65,9 @@
           } else if (message == "snipperclips") {
             snipperclips.style.display = "inline";
             currentLayout = message;
+		  } else if (message == "blue") {
+            overlayblue.style.display = "inline";
+            currentLayout = message;
           } else {break;}
           setTimeout(function() {
             undo(currentLayout);
@@ -86,6 +91,7 @@
           if (currentLayout != 'goose') { acegoose.style.display = 'none';}
           if (currentLayout != 'snipperclips') { snipperclips.style.display = 'none';}
           if (currentLayout != 'san andreas map') { sananmap.style.display = 'none';}
+          if (currentLayout != 'blue') { overlayblue.style.display = 'none';}
       }
   </script>
 </body>
