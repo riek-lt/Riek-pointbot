@@ -1,5 +1,5 @@
 //pkg index.js --output textswapfiles
-const interval = 5; //In seconds
+const interval = 12; //In seconds
 // var _ = require("lodash");
 var fs = require('fs');
 const readline = require("readline-sync");
@@ -25,18 +25,18 @@ var userinput = "";
 var customMsg = "";
 
 userinput = readline.question('Will there be GTA music? (y/n)');
-  if (userinput.match("y")) {
-    options.push(nowPlaying);
-	optionsImage.push(nowPlayingImage);
-    console.log("there will be GTA music");
-  }
-  userinput = readline.question('Do you have a custom message? (n for no): ');
-    if (!userinput.match(/^n&/)) {
-      customMsg = userinput;
-      options.push(customMsg);
-      optionsImage.push(cstmMsgImage);
-      console.log("Added message: " + userinput);
-    }
+if (userinput.match("y")) {
+  options.push(nowPlaying);
+  optionsImage.push(nowPlayingImage);
+  console.log("there will be GTA music");
+}
+userinput = readline.question('Do you have a custom message? (n for no): ');
+if (!userinput.match(/^n&/)) {
+  customMsg = userinput;
+  options.push(customMsg);
+  optionsImage.push(cstmMsgImage);
+  console.log("Added message: " + userinput);
+}
 
 doSwap();
 setInterval(function() {
@@ -54,21 +54,21 @@ function doSwap() {
       if (err) throw err;
     });
   } else {
-  fs.readFile(options[currentState], function(err, data) {
+    fs.readFile(options[currentState], function(err, data) {
+      if (err) throw err;
+      //Fills lines with everything in a string array, seperated by \n.
+      lines = data.toString();
+      console.log(lines);
+      fs.writeFile('slideshow.txt', lines, (err) => {
+        if (err) throw err;
+      });
+    });
+  }
+  fs.readFile(optionsImage[currentState], function(err, data) {
     if (err) throw err;
-    //Fills lines with everything in a string array, seperated by \n.
-    lines = data.toString();
-    console.log(lines);
-    fs.writeFile('slideshow.txt', lines, (err) => {
+    fs.writeFile('slideshowimage.png', data, function(err) {
       if (err) throw err;
     });
   });
-}
-  fs.readFile(optionsImage[currentState], function (err, data) {
-    if (err) throw err;
-    fs.writeFile('slideshowimage.png', data, function (err) {
-        if (err) throw err;
-    });
-});
   currentState++
 }
