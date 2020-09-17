@@ -10,3 +10,4 @@ textswapfiles\slideshow.txt
 /node_modules
 /textswapfiles/node_modules
 *.exe
+.env

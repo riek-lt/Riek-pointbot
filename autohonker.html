@@ -48,7 +48,7 @@ https://lazypy.ro/tts/?voice=2-4-11&service=Oddcast&text=Godverdomme%20heb%20ik%
     const TTS_BASE = "https://cors-anywhere.herokuapp.com/https://lazypy.ro/tts/proxy.php";
     const params = new URLSearchParams(location.search);
     let ttsVoice = params.get("voice") || "Marc";
-    let ttsService="Polly";
+    let ttsService = "Polly";
     // const ttsVoice = params.get("voice") || "Brian";
     var isPlaying = 0;
     let ttsLang = "brit";
@@ -156,22 +156,20 @@ https://lazypy.ro/tts/?voice=2-4-11&service=Oddcast&text=Godverdomme%20heb%20ik%
         case 'fb25b574-6227-40cf-a161-45a2d13cf657':
           console.log("Long song played");
           number = Math.floor(Math.random() * longsong.length);
-          // console.log(number);
           eventQueue.push(longsong[number]);
           overlayTimer(honkOverlay, 3, "honktimer", false);
           break;
         case 'ac09e298-9433-42dd-9c98-32a7be6a0d91':
           console.log("Full song played");
           number = Math.floor(Math.random() * longsong.length);
-          // console.log(number);
-          eventQueue.push(fullsong[number])
+          eventQueue.push(fullsong[number]);
           overlayTimer(honkOverlay, 9, "honktimer", false);
           break;
         case '2b698bc6-7fd5-4bb0-94a8-090326dbf1cb':
           console.log("English TTS");
           msgQueue.length = 0;
           ttsVoice = 'Jordan';
-          ttsService = "CereProc"
+          ttsService = "CereProc";
           overlayTimer(ttsOverlay, 6, "ttsTimer", true);
           break;
         case '1911e078-65e1-4833-aeea-2ca7361e5cf3':
@@ -179,16 +177,16 @@ https://lazypy.ro/tts/?voice=2-4-11&service=Oddcast&text=Godverdomme%20heb%20ik%
           msgQueue.length = 0;
           // ttsVoice = params.get("voice") || "nl-NL-Wavenet-C";
           ttsVoice = 'Ada';
-          ttsService = "CereProc"
+          ttsService = "CereProc";
           overlayTimer(ttsOverlay, 7, "ttsTimer", true);
           break;
-          case '9e28f797-e3e5-46de-8bb2-e29f90e72bc6':
-            console.log("Japanese TTS activate");
-            msgQueue.length = 0;
-            ttsVoice = 'Takumi';
-            ttsService = "Polly"
-            overlayTimer(ttsOverlay, 6, "ttsTimer", true);
-            break;
+        case '9e28f797-e3e5-46de-8bb2-e29f90e72bc6':
+          console.log("Japanese TTS activate");
+          msgQueue.length = 0;
+          ttsVoice = 'Takumi';
+          ttsService = "Polly";
+          overlayTimer(ttsOverlay, 6, "ttsTimer", true);
+          break;
         case '02db1e1d-a2c9-4208-9cd0-94cd6567c1d0':
           console.log("nederlands");
           nederlands.play();
@@ -215,7 +213,7 @@ https://lazypy.ro/tts/?voice=2-4-11&service=Oddcast&text=Godverdomme%20heb%20ik%
     }
     ComfyJS.Init("riekelt");
 
-//The code down here is for playing the honk queue.
+    //The code down here is for playing the honk queue.
     elements.audio.addEventListener('ended', audioController)
 
     async function audioController() {
@@ -300,7 +298,6 @@ https://lazypy.ro/tts/?voice=2-4-11&service=Oddcast&text=Godverdomme%20heb%20ik%
           audio2.play();
           // remove message from queue
           msgQueue.shift();
-
         } else {
           // wait 100ms to check audio duration
           await timeout(100)
@@ -308,29 +305,30 @@ https://lazypy.ro/tts/?voice=2-4-11&service=Oddcast&text=Godverdomme%20heb%20ik%
         }
       }
     }
+
     function makeTTSRequest(method, url) {
-  return new Promise(function (resolve, reject) {
-    let xhr = new XMLHttpRequest();
-    xhr.open(method, url);
-    xhr.onload = function () {
-      if (this.status >= 200 && this.status < 300) {
-        resolve(xhr.response);
-      } else {
-        reject({
-          status: this.status,
-          statusText: xhr.statusText,
-        });
-      }
-    };
-    xhr.onerror = function () {
-      reject({
-        status: this.status,
-        statusText: xhr.statusText,
+      return new Promise(function(resolve, reject) {
+        let xhr = new XMLHttpRequest();
+        xhr.open(method, url);
+        xhr.onload = function() {
+          if (this.status >= 200 && this.status < 300) {
+            resolve(xhr.response);
+          } else {
+            reject({
+              status: this.status,
+              statusText: xhr.statusText,
+            });
+          }
+        };
+        xhr.onerror = function() {
+          reject({
+            status: this.status,
+            statusText: xhr.statusText,
+          });
+        };
+        xhr.send();
       });
-    };
-    xhr.send();
-  });
-}
+    }
   </script>
 </body>
 
