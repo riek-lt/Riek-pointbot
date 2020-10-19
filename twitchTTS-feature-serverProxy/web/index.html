@@ -1,0 +1,153 @@
+<!--
+List of all TTS voices:
+https://github.com/chrisjp/tts/blob/master/assets/js/tts.js#L10-L66
+Test them anywhere
+https://lazypy.ro/tts/?voice=2-4-11&service=Oddcast&text=Godverdomme%20heb%20ik%20zin%20om%20een%20zeehond%20in%20elkaar%20te%20knuppelen&lang=Dutch&s=A
+-->
+<html>
+
+<head>
+  <script src="https://cdn.jsdelivr.net/npm/comfy.js@latest/dist/comfy.min.js"></script>
+  <style>
+    img {
+      top: 0px;
+      left: 0px;
+      position: absolute;
+      padding: 0px 0px 0px 0px;
+      margin: 0px 0px 0px 0px;
+      /* width: 1280px;
+  height: 720px; */
+    }
+  </style>
+</head>
+
+<body>
+  <audio id="audio2" controls="" style="visibility: hidden;">
+    <source id="source2" type="audio/mp3">
+  </audio>
+  <img src="../../overlays/tts.png" id="ttsoverlay" style="display:none" />
+  <script type="text/javascript">
+    var ttsOverlay = document.getElementById('ttsoverlay');
+    const elements2 = {
+      source: document.querySelector("#source2"),
+      audio: document.querySelector("#audio2")
+    };
+    // const TTS_BASE = "https://translate.google.com/translate_tts";
+    // const TTS_BASE = "https://api.streamelements.com/kappa/v2/speech";
+    //const TTS_BASE = "https://cors-anywhere.herokuapp.com/https://lazypy.ro/tts/proxy.php";
+	const TTS_BASE = `${window.location.origin}/tts`;
+    const params = new URLSearchParams(location.search);
+	let ttsVoice = params.get('voice') || 'Brian';
+    // const ttsVoice = params.get("voice") || "Brian";
+	const isTTSEnabled = params.get('tts') || false;
+    let msgQueue = [];
+    var messageLength = "";
+    let ttsTimer = false;
+
+
+    ComfyJS.onCommand = (user, command, message, flags, extra) => {
+      checkCommands(user, message, flags, self, extra);
+    }
+
+    ComfyJS.onChat = (user, message, flags, self, extra) => {
+      checkCommands(user, message, flags, self, extra);
+    }
+
+    function checkCommands(user, message, flags, self, extra) {
+      switch (extra.customRewardId) {
+        case '2b698bc6-7fd5-4bb0-94a8-090326dbf1cb':
+          console.log("English TTS");
+          msgQueue.length = 0;
+          ttsVoice = 'Brian';
+          overlayTimer(ttsOverlay, 7, "ttsTimer", true);
+          break;
+        case '1911e078-65e1-4833-aeea-2ca7361e5cf3':
+          console.log("Dutch TTS activate");
+          msgQueue.length = 0;
+          // ttsVoice = params.get("voice") || "nl-NL-Wavenet-C";
+          ttsVoice = 'Lotte';
+          overlayTimer(ttsOverlay, 8, "ttsTimer", true);
+          break;
+        case '9e28f797-e3e5-46de-8bb2-e29f90e72bc6':
+          console.log("Japanese TTS activate");
+          msgQueue.length = 0;
+          ttsVoice = 'Takumi';
+          overlayTimer(ttsOverlay, 7, "ttsTimer", true);
+          break;
+      }
+
+      if (!flags.customReward) {
+        messageLength = [];
+        messageLength = message.split(" ");
+        if (message[0].substring(0, 1) !== "!") {
+          if (messageLength.length > 20) {
+            message = "";
+            for (var i = 0; i < 20; i++) {
+              message += messageLength[i] + " ";
+            }
+          }
+          msgQueue.push(message.trim());
+          playTTS();
+        } else {}
+      }
+    }
+    ComfyJS.Init("riekelt");
+
+    function overlayTimer(overlay, t, kindof, isTTS) {
+      overlay.style.display = "inline";
+      if (isTTS) {
+        ttsTimer = true;
+      }
+      console.log(kindof + " is true");
+      setTimeout(function() {
+        console.log(kindof + " is false");
+        overlay.style.display = "none";
+        if (isTTS) {
+          ttsTimer = false;
+        }
+      }, (t * 10000));
+    }
+
+elements2.audio.addEventListener('ended', () => {
+  // add bit of delay between messages
+  setTimeout(playTTS, 500);
+});
+
+    async function playTTS() {
+      if (ttsTimer) {
+        // if audio playing, queue
+  if (audio2.paused && msgQueue.length > 0) {
+    const text = msgQueue[0];
+    const voice = ttsVoice;
+    const str = `voice=${voice}&text=${encodeURIComponent(text)}`;
+
+    let speak = {};
+
+    await fetch(`${TTS_BASE}?${str}`, {
+      method: 'POST',
+    })
+      .then((response) => response.json())
+      .then((data) => (speak = data));
+
+    if (!speak.success) {
+      return;
+    }
+
+    // TODO: Switch to Web Audio API instead of using Audio elements.
+    const mp3 = speak.speak_url;
+    elements2.source.src = mp3;
+    const audio = elements2.audio;
+
+    audio2.load();
+    audio2.volume = 1;
+    audio2.play();
+
+    // remove message from queue
+    msgQueue.shift();
+  }
+}
+}
+  </script>
+</body>
+
+</html>

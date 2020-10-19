@@ -1,5 +1,5 @@
 //pkg index.js --output textswapfiles
-const interval = 2; //In seconds
+const interval = 12; //In seconds
 // var _ = require("lodash");
 var fs = require('fs');
 const readline = require("readline-sync");
