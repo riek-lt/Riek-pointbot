@@ -1,9 +1,3 @@
-<!--
-List of all TTS voices:
-https://github.com/chrisjp/tts/blob/master/assets/js/tts.js#L10-L66
-Test them anywhere
-https://lazypy.ro/tts/?voice=2-4-11&service=Oddcast&text=Godverdomme%20heb%20ik%20zin%20om%20een%20zeehond%20in%20elkaar%20te%20knuppelen&lang=Dutch&s=A
--->
 <html>
 
 <head>
@@ -25,34 +19,19 @@ https://lazypy.ro/tts/?voice=2-4-11&service=Oddcast&text=Godverdomme%20heb%20ik%
   <audio id="audio" controls="" style="visibility: hidden;">
     <source id="source" type="audio/mp3">
   </audio>
-  <audio id="audio2" controls="" style="visibility: hidden;">
-    <source id="source2" type="audio/mp3">
-  </audio>
   <img src="overlays/honk.png" id="honkoverlay" style="display:none" />
   <img src="overlays/nederland.png" id="nloverlay" style="display:none;" />
-  <img src="overlays/tts.png" id="ttsoverlay" style="display:none" />
   <script type="text/javascript">
     var nlOverlay = document.getElementById('nloverlay');
-    var ttsOverlay = document.getElementById('ttsoverlay');
     var honkOverlay = document.getElementById('honkoverlay');
-    const elements2 = {
-      source: document.querySelector("#source2"),
-      audio: document.querySelector("#audio2")
-    };
     const elements = {
       source: document.querySelector("#source"),
       audio: document.querySelector("#audio")
     };
     // const TTS_BASE = "https://translate.google.com/translate_tts";
     // const TTS_BASE = "https://api.streamelements.com/kappa/v2/speech";
-    const TTS_BASE = "https://cors-anywhere.herokuapp.com/https://lazypy.ro/tts/proxy.php";
     const params = new URLSearchParams(location.search);
-    let ttsVoice = params.get("voice") || "Marc";
-    let ttsService = "Polly";
     // const ttsVoice = params.get("voice") || "Brian";
-    var isPlaying = 0;
-    let ttsLang = "brit";
-    let honkSay = false;
     let audioplay = [];
     let eventQueue = [];
     let msgQueue = [];
@@ -100,9 +79,19 @@ https://lazypy.ro/tts/?voice=2-4-11&service=Oddcast&text=Godverdomme%20heb%20ik%
     var goosetales = '../Stream memes/honk/goosetales.mp3';
     var smashmouth = '../Stream memes/honk/smash mouth - all star.mp3';
     var vivaldi = '../Stream memes/honk/Vivaldis_Four_Seasons_-_Spring_1_Allegro.mp3';
+    var rickroll1 = '../Stream memes/honk/Rickroll.mp3';
+    var rickroll2 = '../Stream memes/honk/Rickroll0.mp3';
+    var numberone = '../Stream memes/honk/we_are_number_HONK.mp3';
+    var blindhonks = '../Stream memes/honk/the_weeknd_-_blinding_honks.mp3';
+    var pokemonwild2 = '../Stream memes/honk/Pokemon_ Wild Goose Battle.mp3';
+    var goosalina = '../Stream memes/honk/dame_mas_gooselina.mp3';
+    var takeonme = '../Stream memes/honk/dame_mas_gooselina.mp3';
 
-    var longsong = [wildrse, wildrby, megalo1, still, megalo2, betahonk, venga, toxic, toss, mii, nineties, battle, duckmoon, road, ghostbusters, doom, miles, africa1, africa2, caramell, cascada, country, curb, goosetales, smashmouth, vivaldi];
-    //TODO add rickroll
+    var longsong = [wildrse, wildrby, megalo1, still, megalo2, betahonk, venga, toxic, toss, mii, nineties, battle, duckmoon, road, ghostbusters, doom, miles, africa1, africa2, caramell,
+     cascada, country, curb, goosetales, smashmouth, vivaldi, rickroll1, rickroll2, numberone, blindhonks, pokemonwild2, goosalina, takeonme
+     //Delete bottom row
+     ,rickroll1, rickroll2, numberone, blindhonks, pokemonwild2, goosalina, takeonme,rickroll1, rickroll2, numberone, blindhonks, pokemonwild2, goosalina, takeonme
+     ];
 
     var everytimef = '../Stream memes/honk/og/Cascada_-_Everytime_We_Honk.wav';
     var curbf = '../Stream memes/honk/og/curb_your_engooseiasm.wav';
@@ -132,8 +121,17 @@ https://lazypy.ro/tts/?voice=2-4-11&service=Oddcast&text=Godverdomme%20heb%20ik%
     var countryf = '../Stream memes/honk/og/country_roads.mp3';
     var vivaldif = '../Stream memes/honk/og/Vivaldis_Four_Seasons_-_Spring_1_Allegro.wav';
     var africaf = '../Stream memes/honk/og/Africa by Honkhonk.mp3';
+    var takeonmef = '../Stream memes/honk/og/a_ha_take_on_me.mp3';
+    var goosalinaf = '../Stream memes/honk/og/dame_mas_gooselina.mp3';
+    var megalo3f = '../Stream memes/honk/og/Megooselovania.mp3';
+    var pokwildgoosef = '../Stream memes/honk/og/Pokemon_ Wild Goose Battle.mp3';
+    var blindhonksf = '../Stream memes/honk/og/the_weeknd_-_blinding_honks.mp3';
+    var numberonef = '../Stream memes/honk/og/we_are_number_HONK.mp3';
+
     var fullsong = [everytimef, curbf, doomf, duckmoonf, enterf, firef, ghostf, goosef, ninetiesf, megalo1f, miif, roadf, rickf, smashf, stillf, tossf, toxicf, megalo2f, vengaf, wildbattlef, wildbattlersef, caramelf, battlef, africaf, milesf,
-      countryf, vivaldif, abbaf
+      countryf, vivaldif, abbaf, takeonmef, goosalinaf, megalo3f, pokwildgoosef, blindhonksf, numberonef
+      //delete bottom row
+      ,takeonmef, goosalinaf, megalo3f, pokwildgoosef, blindhonksf, numberonef
     ];
 
     ComfyJS.onCommand = (user, command, message, flags, extra) => {
@@ -165,33 +163,12 @@ https://lazypy.ro/tts/?voice=2-4-11&service=Oddcast&text=Godverdomme%20heb%20ik%
           eventQueue.push(fullsong[number]);
           overlayTimer(honkOverlay, 9, "honktimer", false);
           break;
-        case '2b698bc6-7fd5-4bb0-94a8-090326dbf1cb':
-          console.log("English TTS");
-          msgQueue.length = 0;
-          ttsVoice = 'Jordan';
-          ttsService = "CereProc";
-          overlayTimer(ttsOverlay, 6, "ttsTimer", true);
-          break;
-        case '1911e078-65e1-4833-aeea-2ca7361e5cf3':
-          console.log("Dutch TTS activate");
-          msgQueue.length = 0;
-          // ttsVoice = params.get("voice") || "nl-NL-Wavenet-C";
-          ttsVoice = 'Ada';
-          ttsService = "CereProc";
-          overlayTimer(ttsOverlay, 7, "ttsTimer", true);
-          break;
-        case '9e28f797-e3e5-46de-8bb2-e29f90e72bc6':
-          console.log("Japanese TTS activate");
-          msgQueue.length = 0;
-          ttsVoice = 'Takumi';
-          ttsService = "Polly";
-          overlayTimer(ttsOverlay, 6, "ttsTimer", true);
-          break;
         case '02db1e1d-a2c9-4208-9cd0-94cd6567c1d0':
           console.log("nederlands");
           nederlands.play();
           nlOverlay.style.display = "inline";
           overlayTimer(nlOverlay, 6, "nltimer", false);
+          break;
       }
 
       audioController();
@@ -257,77 +234,6 @@ https://lazypy.ro/tts/?voice=2-4-11&service=Oddcast&text=Godverdomme%20heb%20ik%
           ttsTimer = false;
         }
       }, (t * 10000));
-    }
-
-    async function playTTS() {
-      if (ttsTimer) {
-        // if audio playing, queue
-        if (audio2.paused) {
-          const str = `service=${ttsService}&voice=${ttsVoice}&text=${encodeURIComponent(msgQueue[0])}`;
-          const qs = new URLSearchParams({
-            voice: ttsVoice,
-            text: msgQueue[0]
-          });
-          // const qs = new URLSearchParams({
-          // total: 1,
-          // idx: 0,
-          // ie: "UTF-8",
-          // textlength: msgQueue[0].length,
-          //   tl: "en-GB",
-          //   client: "tw-ob",
-          //   q: msgQueue[0]
-          // });
-          let speak = await makeTTSRequest('POST', `${TTS_BASE}?${str}`);
-          speak = JSON.parse(speak);
-          if (!speak.success) {
-            console.log("speak didn't succeed");
-            // return;
-          }
-          if (speak.status != 200) {
-            console.log("speak isn't 200");
-            // await speak.text();
-            // return;
-          }
-
-          const mp3 = speak.speak_url;
-          // const blobUrl = URL.createObjectURL(mp3);
-          elements2.source.src = mp3;
-          const audio2 = elements2.audio;
-          audio2.load();
-          audio2.volume = 1;
-          audio2.play();
-          // remove message from queue
-          msgQueue.shift();
-        } else {
-          // wait 100ms to check audio duration
-          await timeout(100)
-          setTimeout(playTTS, audio2.duration * 1000 + 100);
-        }
-      }
-    }
-
-    function makeTTSRequest(method, url) {
-      return new Promise(function(resolve, reject) {
-        let xhr = new XMLHttpRequest();
-        xhr.open(method, url);
-        xhr.onload = function() {
-          if (this.status >= 200 && this.status < 300) {
-            resolve(xhr.response);
-          } else {
-            reject({
-              status: this.status,
-              statusText: xhr.statusText,
-            });
-          }
-        };
-        xhr.onerror = function() {
-          reject({
-            status: this.status,
-            statusText: xhr.statusText,
-          });
-        };
-        xhr.send();
-      });
     }
   </script>
 </body>
