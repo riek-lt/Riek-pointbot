@@ -35,11 +35,11 @@ https://lazypy.ro/tts/?voice=2-4-11&service=Oddcast&text=Godverdomme%20heb%20ik%
     // const TTS_BASE = "https://translate.google.com/translate_tts";
     // const TTS_BASE = "https://api.streamelements.com/kappa/v2/speech";
     //const TTS_BASE = "https://cors-anywhere.herokuapp.com/https://lazypy.ro/tts/proxy.php";
-	const TTS_BASE = `${window.location.origin}/tts`;
+    const TTS_BASE = `${window.location.origin}/tts`;
     const params = new URLSearchParams(location.search);
-	let ttsVoice = params.get('voice') || 'Brian';
+    let ttsVoice = params.get('voice') || 'Brian';
     // const ttsVoice = params.get("voice") || "Brian";
-	const isTTSEnabled = params.get('tts') || false;
+    const isTTSEnabled = params.get('tts') || false;
     let msgQueue = [];
     var messageLength = "";
     let ttsTimer = false;
@@ -59,20 +59,20 @@ https://lazypy.ro/tts/?voice=2-4-11&service=Oddcast&text=Godverdomme%20heb%20ik%
           console.log("English TTS");
           msgQueue.length = 0;
           ttsVoice = 'Brian';
-          overlayTimer(ttsOverlay, 7, "ttsTimer", true);
+          overlayTimer(ttsOverlay, randomIntInc(12,6), "ttsTimer", true);
           break;
         case '1911e078-65e1-4833-aeea-2ca7361e5cf3':
           console.log("Dutch TTS activate");
           msgQueue.length = 0;
           // ttsVoice = params.get("voice") || "nl-NL-Wavenet-C";
           ttsVoice = 'Lotte';
-          overlayTimer(ttsOverlay, 8, "ttsTimer", true);
+          overlayTimer(ttsOverlay, randomIntInc(12,6), "ttsTimer", true);
           break;
         case '9e28f797-e3e5-46de-8bb2-e29f90e72bc6':
           console.log("Japanese TTS activate");
           msgQueue.length = 0;
           ttsVoice = 'Takumi';
-          overlayTimer(ttsOverlay, 7, "ttsTimer", true);
+          overlayTimer(ttsOverlay, randomIntInc(12,6), "ttsTimer", true);
           break;
       }
 
@@ -108,45 +108,50 @@ https://lazypy.ro/tts/?voice=2-4-11&service=Oddcast&text=Godverdomme%20heb%20ik%
       }, (t * 10000));
     }
 
-elements2.audio.addEventListener('ended', () => {
-  // add bit of delay between messages
-  setTimeout(playTTS, 500);
-});
+    elements2.audio.addEventListener('ended', () => {
+      // add bit of delay between messages
+      setTimeout(playTTS, 500);
+    });
 
     async function playTTS() {
       if (ttsTimer) {
         // if audio playing, queue
-  if (audio2.paused && msgQueue.length > 0) {
-    const text = msgQueue[0];
-    const voice = ttsVoice;
-    const str = `voice=${voice}&text=${encodeURIComponent(text)}`;
+        if (audio2.paused && msgQueue.length > 0) {
+          const text = msgQueue[0];
+          const voice = ttsVoice;
+          const str = `voice=${voice}&text=${encodeURIComponent(text)}`;
 
-    let speak = {};
+          let speak = {};
 
-    await fetch(`${TTS_BASE}?${str}`, {
-      method: 'POST',
-    })
-      .then((response) => response.json())
-      .then((data) => (speak = data));
+          await fetch(`${TTS_BASE}?${str}`, {
+              method: 'POST',
+            })
+            .then((response) => response.json())
+            .then((data) => (speak = data));
 
-    if (!speak.success) {
-      return;
+          if (!speak.success) {
+            return;
+          }
+
+          // TODO: Switch to Web Audio API instead of using Audio elements.
+          const mp3 = speak.speak_url;
+          elements2.source.src = mp3;
+          const audio = elements2.audio;
+
+          audio2.load();
+          audio2.volume = 1;
+          audio2.play();
+
+          // remove message from queue
+          msgQueue.shift();
+        }
+      }
     }
-
-    // TODO: Switch to Web Audio API instead of using Audio elements.
-    const mp3 = speak.speak_url;
-    elements2.source.src = mp3;
-    const audio = elements2.audio;
-
-    audio2.load();
-    audio2.volume = 1;
-    audio2.play();
-
-    // remove message from queue
-    msgQueue.shift();
-  }
-}
-}
+    function randomIntInc(high, low) {
+      var returnio = Math.floor(Math.random() * high);
+      console.log(returnio);
+      return returnio;
+    }
   </script>
 </body>
 
