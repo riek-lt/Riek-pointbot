@@ -1,0 +1,257 @@
+<html>
+
+<head>
+  <script src="https://cdn.jsdelivr.net/npm/comfy.js@latest/dist/comfy.min.js"></script>
+  <style>
+    img {
+      top: 0px;
+      left: 0px;
+      position: absolute;
+      padding: 0px 0px 0px 0px;
+      margin: 0px 0px 0px 0px;
+      /* width: 1280px;
+  height: 720px; */
+    }
+  </style>
+</head>
+
+<body>
+  <audio id="audio" controls="" style="visibility: hidden;">
+    <source id="source" type="audio/mp3">
+  </audio>
+  <img src="overlays/honk.png" id="honkoverlay" style="display:none" />
+  <img src="overlays/nederland.png" id="nloverlay" style="display:none;" />
+  <script type="text/javascript">
+    var nlOverlay = document.getElementById('nloverlay');
+    var honkOverlay = document.getElementById('honkoverlay');
+    const elements = {
+      source: document.querySelector("#source"),
+      audio: document.querySelector("#audio")
+    };
+    // const TTS_BASE = "https://translate.google.com/translate_tts";
+    // const TTS_BASE = "https://api.streamelements.com/kappa/v2/speech";
+    const params = new URLSearchParams(location.search);
+    // const ttsVoice = params.get("voice") || "Brian";
+
+
+    let audioplay = [];
+    let eventQueue = [];
+    let msgQueue = [];
+    let songSelectRandom;
+    var messageLength = "";
+    let ttsTimer = false;
+    let nederlands = new Audio('nederland.mp3');
+
+    const shorthonkers = {
+      honk: '../Stream memes/honk/honk-sound.mp3',
+      because: '../Stream memes/honk/because.wav',
+      turbohonk: '../Stream memes/honk/honk2.wav',
+      tinahonk: '../Stream memes/honk/gossipBlue_honk_02.wav',
+      honk2: '../Stream memes/honk/ALl/goose_honk_b_03.wav',
+      honk3: '../Stream memes/honk/ALl/goose_honk_b_06.wav',
+      pylon3: '../Stream memes/honk/ALl/goose_honk_pylon_03.wav',
+      harmonica1: '../Stream memes/honk/ALl/goose_honk_harmonica_02.wav',
+      harmonica2: '../Stream memes/honk/ALl/goose_honk_harmonica_06.wav',
+      soap: '../Stream memes/honk/ALl/goose_honk_soap_04.wav',
+      trash: '../Stream memes/honk/ALl/goose_honk_trashlid_03.wav',
+      walkie2: '../Stream memes/honk/ALl/goose_honk_walkie_talkie_04.wav',
+      walkie1: '../Stream memes/honk/ALl/goose_honk_walkie_talkie_03.wav',
+    }
+
+    const honkers30 = {
+      pkmnwild: '../Stream memes/honk/wild_goose_battle.mp3',
+      pkmnwild2: '../Stream memes/honk/wild_goose_battle_rubysapph.mp3',
+      pkmnwild3: '../Stream memes/honk/Pokemon_ Wild Goose Battle.mp3',
+      megalovania: '../Stream memes/honk/undertale-megalovania-but-its-honked-by-the-goose.mp3',
+      megalovania2: '../Stream memes/honk/MegaHONKvaniaSHORT.mp3',
+      stillalive: '../Stream memes/honk/still_a_goose.mp3',
+      flintstones: '../Stream memes/honk/Goose Honk (Beta Mix) -Untitled Goose Game.mp3',
+      vengaboys: '../Stream memes/honk/vengagoose_we_like_to_party.mp3',
+      toxic: '../Stream memes/honk/toxic_goose.mp3',
+      witcher: '../Stream memes/honk/Toss_a_Coin_to_Your_Goose.mp3',
+      miichannel: '../Stream memes/honk/mii_channel_goose.mp3',
+      inthe90s: '../Stream memes/honk/HONKING_IN_THE_90s_NOT_WHEN_I_SHIFT_INTO_MAXIMUM_OVERHONK.mp3',
+      battleagainst: '../Stream memes/honk/battle_against_a_true_goose.mp3',
+      ducktalesmoon: '../Stream memes/honk/ducktales_the_moon.mp3',
+      ontheroad: '../Stream memes/honk/On the road again.mp3',
+      ghostbusters: '../Stream memes/honk/Ghostbusters.mp3',
+      doom: '../Stream memes/honk/Doom.mp3',
+      miles: '../Stream memes/honk/500_miles.mp3',
+      africa1: '../Stream memes/honk/Africa by Honkhonk1.mp3',
+      africa2: '../Stream memes/honk/Africa by Honkhonk2.mp3',
+      caramell: '../Stream memes/honk/Caramelldansen featuring Goose.mp3',
+      everytime: '../Stream memes/honk/Cascada_-_Everytime_We_Honk.mp3',
+      country: '../Stream memes/honk/country_roads.mp3',
+      curb: '../Stream memes/honk/curb_your_engooseiasm.mp3',
+      ducktales: '../Stream memes/honk/goosetales.mp3',
+      smashmouth: '../Stream memes/honk/smash mouth - all star.mp3',
+      vivaldi: '../Stream memes/honk/Vivaldis_Four_Seasons_-_Spring_1_Allegro.mp3',
+      rickroll1: '../Stream memes/honk/Rickroll.mp3',
+      rickroll2: '../Stream memes/honk/Rickroll0.mp3',
+      numberone: '../Stream memes/honk/we_are_number_HONK.mp3',
+      blindhonks: '../Stream memes/honk/the_weeknd_-_blinding_honks.mp3',
+      gasolina: '../Stream memes/honk/dame_mas_gooselina.mp3',
+      takeonme: '../Stream memes/honk/a_ha_take_on_me.mp3',
+    }
+    const longhonkers = {
+      everytime: '../Stream memes/honk/og/Cascada_-_Everytime_We_Honk.wav',
+      curb: '../Stream memes/honk/og/curb_your_engooseiasm.wav',
+      doom: '../Stream memes/honk/og/Doom.mp3',
+      ducktalesmoon: '../Stream memes/honk/og/ducktales_the_moon.mp3',
+      enterprising: '../Stream memes/honk/og/Enterprising_Young_Geese.mp3',
+      fireflies: '../Stream memes/honk/og/fireflies_by_goose_city.mp3', //nogdoen
+      ghostbusters: '../Stream memes/honk/og/Ghostbusters.mp3',
+      ducktales: '../Stream memes/honk/og/goosetales.wav',
+      inthe90s: '../Stream memes/honk/og/HONKING_IN_THE_90s_NOT_WHEN_I_SHIFT_INTO_MAXIMUM_OVERHONK.mp3',
+      megalovania: '../Stream memes/honk/og/MegaHONKvania.mp3',
+      megalovania2: '../Stream memes/honk/og/undertale-megalovania-but-its-honked-by-the-goose.mp3',
+      megalovania3: '../Stream memes/honk/og/Megooselovania.mp3',
+      miichannel: '../Stream memes/honk/og/mii_channel_goose.mp3',
+      ontheroad: '../Stream memes/honk/og/On the road again.mp3',
+      rickroll: '../Stream memes/honk/og/Rickroll.mp3',
+      smashmouth: '../Stream memes/honk/og/smash mouth - all star - a url-hoarder-official property.mp3',
+      stillalive: '../Stream memes/honk/og/still_a_goose.mp3',
+      witcher: '../Stream memes/honk/og/Toss_a_Coin_to_Your_Goose.mp3',
+      toxic: '../Stream memes/honk/og/toxic_goose.mp3',
+      vengaboys: '../Stream memes/honk/og/vengagoose_we_like_to_party.mp3',
+      pkmnwild: '../Stream memes/honk/og/wild_goose_battle.mp3',
+      pkmnwild2: '../Stream memes/honk/og/wild_goose_battle_rubysapph.mp3',
+      pkmnwild3: '../Stream memes/honk/og/Pokemon_ Wild Goose Battle.mp3',
+      caramell: '../Stream memes/honk/og/Caramelldansen featuring Goose.mp3',
+      battleagainst: '../Stream memes/honk/og/battle_against_a_true_goose.mp3',
+      miles: '../Stream memes/honk/og/500_miles.mp3',
+      dancingqueen: '../Stream memes/honk/og/abba_dancing_queen.wav',
+      country: '../Stream memes/honk/og/country_roads.mp3',
+      vivaldi: '../Stream memes/honk/og/Vivaldis_Four_Seasons_-_Spring_1_Allegro.wav',
+      africa: '../Stream memes/honk/og/Africa by Honkhonk.mp3',
+      takeonme: '../Stream memes/honk/og/a_ha_take_on_me.mp3',
+      gasolina: '../Stream memes/honk/og/dame_mas_gooselina.mp3',
+      blindhonks: '../Stream memes/honk/og/the_weeknd_-_blinding_honks.mp3',
+      numberone: '../Stream memes/honk/og/we_are_number_HONK.mp3',
+    }
+    //     let shortsong = [honk, because, honk2, gossipblue, honkb3, pylon3, harmonica2, harmonica6, soap4, trash3, walkie4, walkie3, honkb6];
+    //
+    var rickroll1 = '../Stream memes/honk/og/Rickroll.mp3';
+    var longsong = [rickroll1];
+    //
+    //     var fullsong = [everytimef, curbf, doomf, duckmoonf, enterf, firef, ghostf, goosef, ninetiesf, megalo1f, miif, roadf, rickf, smashf, stillf, tossf, toxicf, megalo2f, vengaf, wildbattlef, wildbattlersef, caramelf, battlef, africaf, milesf,
+    //       countryf, vivaldif, abbaf, takeonmef, goosalinaf, megalo3f, pokwildgoosef, blindhonksf, numberonef
+    //       //delete bottom row
+    //       , takeonmef, goosalinaf, megalo3f, pokwildgoosef, blindhonksf, numberonef
+    //     ];
+
+    ComfyJS.onCommand = (user, command, message, flags, extra) => {
+      checkCommands(user, message, flags, self, extra);
+    }
+
+    ComfyJS.onChat = (user, message, flags, self, extra) => {
+      checkCommands(user, message, flags, self, extra);
+    }
+
+    function checkCommands(user, message, flags, self, extra) {
+      switch (extra.customRewardId) {
+        case 'e7750cae-582f-43a6-931f-4faed7e1943d':
+          break;
+        case '231bc4b1-1e68-4779-9b05-04b49cc04822':
+          console.log("Short song played");
+          songSelector(shorthonkers, message);
+          // eventQueue.push(shortsong[Math.floor(Math.random() * shortsong.length)]);
+          overlayTimer(honkOverlay, 0.1, "honktimer", false);
+          break;
+        case 'fb25b574-6227-40cf-a161-45a2d13cf657':
+          console.log("Long song played");
+          songSelector(honkers30, message);
+          overlayTimer(honkOverlay, 3, "honktimer", false);
+          break;
+        case 'ac09e298-9433-42dd-9c98-32a7be6a0d91':
+          console.log("Full song played");
+          songSelector(longhonkers, message);
+          overlayTimer(honkOverlay, 9, "honktimer", false);
+          break;
+        case '02db1e1d-a2c9-4208-9cd0-94cd6567c1d0':
+          console.log("nederlands");
+          nederlands.play();
+          nlOverlay.style.display = "inline";
+          overlayTimer(nlOverlay, randomIntInc(12, 6), "nltimer", false);
+          break;
+      }
+      audioController();
+      if (!flags.customReward) {
+        messageLength = [];
+        messageLength = message.split(" ");
+        if (message[0].substring(0, 1) !== "!") {
+          if (messageLength.length > 20) {
+            message = "";
+            for (var i = 0; i < 20; i++) {
+              message += messageLength[i] + " ";
+            }
+          }
+          msgQueue.push(message.trim());
+          playTTS();
+        } else {}
+      }
+    }
+    ComfyJS.Init("riekelt");
+
+
+    function songSelector(array, message) {
+      if (array[message]) {
+        console.log("match " + array[message] + " - " + message);
+        eventQueue.push(array[message]);
+      } else {
+        console.log("random'd " + message);
+        let objArr = Object.values(array)
+        songSelectRandom = objArr[~~(Math.random() *objArr.length)];
+        console.log(songSelectRandom);
+        eventQueue.push(songSelectRandom);
+      }
+    }
+    //The code down here is for playing the honk queue.
+    elements.audio.addEventListener('ended', audioController)
+
+    async function audioController() {
+
+
+      if (audio.paused) {
+        if (eventQueue[0] === undefined) {} else {
+          elements.source.src = eventQueue[0];
+          const audio = elements.audio;
+
+          await timeout(100)
+          audio.load()
+          audio.volume = 0.7;
+          audio.play()
+
+          eventQueue.shift()
+        }
+      }
+    }
+
+    function timeout(ms) {
+      return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
+    function randomIntInc(high, low) {
+      var returnio = Math.floor(Math.random() * high);
+      console.log(returnio);
+      return returnio;
+    }
+
+    function overlayTimer(overlay, t, kindof, isTTS) {
+      overlay.style.display = "inline";
+      if (isTTS) {
+        ttsTimer = true;
+      }
+      console.log(kindof + " is true");
+      setTimeout(function() {
+        console.log(kindof + " is false");
+        overlay.style.display = "none";
+        if (isTTS) {
+          ttsTimer = false;
+        }
+      }, (t * 10000));
+    }
+  </script>
+</body>
+
+</html>
