@@ -17,7 +17,7 @@ For example:
 honk sound;
 231bc4b1-1e68-4779-9b05-04b49cc04822
 
-Then in audio.html (fill your channel in there too),
+Then in index.html (fill your channel in there too),
 make a new case (or delete the ones that's already there)
 put in your custom reward ID, and all the lines of code
 that you want to execute. In the top one, it outputs 
