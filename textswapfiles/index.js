@@ -11,12 +11,15 @@ var newestCheerer = "C:/Users/Rieke/Muxy/cheer/most_recent_cheerer.txt";
 var currentFollowers = "C:/Users/Rieke/Muxy/total_follower_count.txt"
 var nowPlaying = "C:\Users/Rieke/Documents/GTA San Andreas User Files/Now Playing.txt"
 var extraTXT = "D:/Dropbox/Projects/Stream/fluff/textswapfiles/extratxt.txt";
+var sessionSubs = "C:/Users/Rieke/Muxy/session_new_subscriber_count.txt";
+
 
 var subImage = "D:/Dropbox/Projects/Stream/fluff/textswapfiles/img/sub.png";
 var cheerImage = "D:/Dropbox/Projects/Stream/fluff/textswapfiles/img/cheers.png";
 var followerImage = "D:/Dropbox/Projects/Stream/fluff/textswapfiles/img/followers.png";
 var nowPlayingImage = "D:/Dropbox/Projects/Stream/fluff/textswapfiles/img/musiccover.png";
 var cstmMsgImage = "D:/Dropbox/Projects/Stream/fluff/textswapfiles/img/msg.png";
+var sesstarImage = "D:/Dropbox/Projects/Stream/fluff/textswapfiles/img/sesstar.png";
 
 var options = [newestSub, newestCheerer, currentFollowers];
 var optionsImage = [subImage, cheerImage, followerImage];
@@ -46,6 +49,12 @@ if (userinput !== "n") {
   options.push('counter');
   optionsImage.push(cstmMsgImage);
   console.log("Added: " + customCounterText);
+}
+userinput = readline.question('Is this stream eligible for an end-of-stream bonus?');
+if (userinput !== "n") {
+  options.push(sessionSubs);
+  optionsImage.push(sesstarImage);
+  console.log("Have fun streaming, gamer.");
 }
 
 doSwap();
