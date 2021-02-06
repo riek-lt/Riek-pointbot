@@ -23,6 +23,7 @@
   <img src="../Graphics/OverlayV4/std/GooseAttorney.png" id="acegoose43" style="display:none" />
   <img src="../Graphics/OverlayV4/std/snipperclips.png" id="snipperclips43" style="display:none" />
   <img src="../Graphics/OverlayV4/std/OverlaySTDblue.png" id="blue43"  />
+  <img src="../Graphics/OverlayV4/std/4x3_SpeedyFolf_Refunct.png" id="refunct43" style="display:none" />
   <script type="text/javascript">
     var pink = document.getElementById('pink43');
     var synth = document.getElementById('synth43');
@@ -31,6 +32,7 @@
     var acegoose = document.getElementById('acegoose43');
     var snipperclips = document.getElementById('snipperclips43');
     var blue = document.getElementById('blue43');
+	var refunct = document.getElementById('refunct43');
     var currentLayout = "pink";
 
 
@@ -66,7 +68,10 @@
             snipperclips.style.display = "inline";
             currentLayout = message;
           } else if (message == "blue") {
-            snipperclips.style.display = "inline";
+            blue.style.display = "inline";
+            currentLayout = message;
+		  } else if (message == "refunct") {
+            refunct.style.display = "inline";
             currentLayout = message;
           } else {break;}
           setTimeout(function() {
@@ -92,6 +97,7 @@
           if (currentLayout != 'snipperclips') { snipperclips.style.display = 'none';}
           if (currentLayout != 'san andreas map') { sananmap.style.display = 'none';}
           if (currentLayout != 'blue') { blue.style.display = 'none';}
+          if (currentLayout != 'refunct') { refunct.style.display = 'none';}
 
     }
   </script>
