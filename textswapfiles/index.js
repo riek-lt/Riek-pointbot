@@ -5,13 +5,19 @@ var fs = require('fs');
 const readline = require("readline-sync");
 
 // var newestSub = "file:///C:\\Users/Rieke/Muxy/most_recent_subscriber.txt";
-var newestSub = 'c:\\Users\\Rieke\\Muxy\\most_recent_subscriber.txt';
+// var newestSub = 'c:\\Users\\Rieke\\Muxy\\most_recent_subscriber.txt';
 // var newestFollower = "C:/Users/Rieke/Muxy/most_recent_follower.txt";
-var newestCheerer = "C:/Users/Rieke/Muxy/cheer/most_recent_cheerer.txt";
-var currentFollowers = "C:/Users/Rieke/Muxy/total_follower_count.txt"
+// var newestCheerer = "C:/Users/Rieke/Muxy/cheer/most_recent_cheerer.txt";
+// var currentFollowers = "C:/Users/Rieke/Muxy/total_follower_count.txt"
+// var nowPlaying = "C:\Users/Rieke/Documents/GTA San Andreas User Files/Now Playing.txt"
+// var sessionSubs = "C:/Users/Rieke/Muxy/session_new_subscriber_count.txt";
+var newestSub = 'c:\\Users\\Rieke\\Documents\\Streamlabels\\most_recent_subscriber.txt';
+var newestFollower = "C:/Users/Rieke/Documents\\Streamlabels/most_recent_follower.txt";
+var newestCheerer = "C:/Users/Rieke/Documents\\Streamlabels/most_recent_cheerer.txt";
+var currentFollowers = "C:/Users/Rieke/Documents\\Streamlabels/total_follower_count.txt"
 var nowPlaying = "C:\Users/Rieke/Documents/GTA San Andreas User Files/Now Playing.txt"
+var sessionSubs = "C:/Users/Rieke/Documents\\Streamlabels/session_subscriber_count.txt";
 var extraTXT = "D:/Dropbox/Projects/Stream/fluff/textswapfiles/extratxt.txt";
-var sessionSubs = "C:/Users/Rieke/Muxy/session_new_subscriber_count.txt";
 
 
 var subImage = "D:/Dropbox/Projects/Stream/fluff/textswapfiles/img/sub.png";
@@ -21,8 +27,8 @@ var nowPlayingImage = "D:/Dropbox/Projects/Stream/fluff/textswapfiles/img/musicc
 var cstmMsgImage = "D:/Dropbox/Projects/Stream/fluff/textswapfiles/img/msg.png";
 var sesstarImage = "D:/Dropbox/Projects/Stream/fluff/textswapfiles/img/sesstar.png";
 
-var options = [newestSub, newestCheerer, currentFollowers];
-var optionsImage = [subImage, cheerImage, followerImage];
+var options = [newestSub, newestFollower, newestCheerer, currentFollowers];
+var optionsImage = [subImage, followerImage, cheerImage, followerImage];
 var currentState = 0;
 var lines = "";
 var userinput = "";
