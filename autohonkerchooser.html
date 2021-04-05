@@ -41,6 +41,8 @@
     var messageLength = "";
     let ttsTimer = false;
     let nederlands = new Audio('nederland.mp3');
+    let shutup = new Audio('sfx/shutup.mp3');
+        let noice = new Audio('sfx/noice.mp3');
 
     const shorthonkers = {
       honk: '../Stream memes/honk/honk-sound.mp3',
@@ -174,6 +176,15 @@
           nlOverlay.style.display = "inline";
           overlayTimer(nlOverlay, randomIntInc(12, 6), "nltimer", false);
           break;
+          case 'ab0eb050-b6c5-4137-b255-1c3f07ab5457':
+          console.log('Shut up!');
+          shutup.play();
+          break;
+          case '11b85dac-f8b1-4e72-9877-a4910fa12ffc':
+          console.log('NICE');
+          noice.play();
+          break;
+
       }
       audioController();
       if (!flags.customReward) {

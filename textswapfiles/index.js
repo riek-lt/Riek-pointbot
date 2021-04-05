@@ -17,15 +17,15 @@ var newestCheerer = "C:/Users/Rieke/Documents\\Streamlabels/most_recent_cheerer.
 var currentFollowers = "C:/Users/Rieke/Documents\\Streamlabels/total_follower_count.txt"
 var nowPlaying = "C:\Users/Rieke/Documents/GTA San Andreas User Files/Now Playing.txt"
 var sessionSubs = "C:/Users/Rieke/Documents\\Streamlabels/session_subscriber_count.txt";
-var extraTXT = "D:/Dropbox/Projects/Stream/fluff/textswapfiles/extratxt.txt";
+var extraTXT = "D:/Gsync/Projects/Stream/fluff/textswapfiles/extratxt.txt";
 
 
-var subImage = "D:/Dropbox/Projects/Stream/fluff/textswapfiles/img/sub.png";
-var cheerImage = "D:/Dropbox/Projects/Stream/fluff/textswapfiles/img/cheers.png";
-var followerImage = "D:/Dropbox/Projects/Stream/fluff/textswapfiles/img/followers.png";
-var nowPlayingImage = "D:/Dropbox/Projects/Stream/fluff/textswapfiles/img/musiccover.png";
-var cstmMsgImage = "D:/Dropbox/Projects/Stream/fluff/textswapfiles/img/msg.png";
-var sesstarImage = "D:/Dropbox/Projects/Stream/fluff/textswapfiles/img/sesstar.png";
+var subImage = "D:/Gsync/Projects/Stream/fluff/textswapfiles/img/sub.png";
+var cheerImage = "D:/Gsync/Projects/Stream/fluff/textswapfiles/img/cheers.png";
+var followerImage = "D:/Gsync/Projects/Stream/fluff/textswapfiles/img/followers.png";
+var nowPlayingImage = "D:/Gsync/Projects/Stream/fluff/textswapfiles/img/musiccover.png";
+var cstmMsgImage = "D:/Gsync/Projects/Stream/fluff/textswapfiles/img/msg.png";
+var sesstarImage = "D:/Gsync/Projects/Stream/fluff/textswapfiles/img/sesstar.png";
 
 var options = [newestSub, newestFollower, newestCheerer, currentFollowers];
 var optionsImage = [subImage, followerImage, cheerImage, followerImage];
